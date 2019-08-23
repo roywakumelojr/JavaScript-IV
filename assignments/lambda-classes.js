@@ -27,10 +27,20 @@ class Instructor extends Person {
         this.subject = instructorAttributes.subject;
     }
     demo (student) {
-        return `Today we are learning about ${subject}`;
+        return `Today we are learning about ${student.subject}`;
     }
     grade (student, subject) {
         return `${student.name} receives a perfect score on ${subject}`;
+    }
+    studentGrading (student) {
+        const receivedGrade = Math.random() * 100;
+        if (student.grade >= 80){
+            student.grade += receivedGrade;
+            return `${receivedGrade} points have been added to ${student.name}`
+        } else {
+            student.grade -= receivedGrade;
+            return `${receivedGrade} points have been subtracted to ${student.name}`
+        }
     }
 }
 
@@ -46,8 +56,8 @@ class Student extends Person {
         this.subject = studentAttributes.subject;
         
     }
-    listsSubjects () {
-        return this.favSubjects.map(item => console.log (item));
+    listsSubjects (favSubjects) {
+        return this.favSubjects.forEach(item => console.log (items));
     }
     PRAssignment (subject) {
         return `${this.name} has submitted a PR for ${subject}`;
@@ -83,19 +93,29 @@ const frank = new Instructor ({
     specialty: 'redux',
     favLanguage: 'JavaScript',
     catchPhrase: 'you\'ve got this!',
+    subject: 'JavaScript'
 });
 
 // Student
-const student = new Student ({
-    name: 'Chris',
+const studentOne = new Student ({
+    name: 'chris',
     age: 30,
     location: 'Portland',
     previousBackground: 'Banking',
     className: 'Web23',
     favSubjects: ['Html', 'CSS', 'JavaScript'],
-    grade: 100,
+    grade: 90,
 });
 
+const studentTwo = new Student ({
+    name: 'mary',
+    age: 30,
+    location: 'Portland',
+    previousBackground: 'teaching',
+    className: 'Web23',
+    favSubjects: ['Html', 'CSS', 'JavaScript'],
+    grade: 75,
+});
 // Project Manager
 const sean = new ProjectManagers ({
     name: 'Sean',
@@ -111,17 +131,19 @@ console.log(frank.speak());
 console.log(frank.demo("JavaScript"));
 
 // student 
-console.log(Mary.listsSubjects());
-console.log(Mary.PRAssignment());
+console.log(chris.listsSubjects());
+console.log(mary.PRAssignment());
 
 // Project Manager 
 console.log(sean.standUp(channel));
 console.log(sean.speak());
 
 // #### Stretch Problem
-
 // * Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
+
 // * Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
+
 // * Add a graduate method to a student.
 //   * This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
+
 //   * If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
